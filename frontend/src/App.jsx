@@ -2,8 +2,9 @@ import React from "react";
 
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
-import FundsPage from "./pages/FundsPage";
 import SubscribePage from "./pages/SubscribePage";
+import HistoryPage from "./pages/HistoryPage";
+import FundsPage from "./pages/FundsPage";
 
 const App = () => {
   return (
@@ -14,11 +15,13 @@ const App = () => {
           <div className="space-x-4">
             <Link to="/">Fondos</Link>
             <Link to="/subscribe">Suscribirse</Link>
+            <Link to="/history">Historial</Link>
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={<FundsPage />} />
+          <Route path="/" index element={<FundsPage />} />
           <Route path="/subscribe" element={<SubscribePage />} />
+          <Route path="/history" element={<HistoryPage />} />
         </Routes>
       </Router>
     </React.Fragment>
