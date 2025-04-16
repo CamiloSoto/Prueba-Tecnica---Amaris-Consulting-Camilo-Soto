@@ -1,14 +1,16 @@
+## Configurar entorno virtual
+
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+py -m venv venv
+venv\Scripts\activate
 pip install fastapi uvicorn boto3 pydantic[dotenv]
 pip install pytest
 ```
-
+##
 ```
 
 ```
-
+## 
 ```
 
 ```
