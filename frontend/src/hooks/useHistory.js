@@ -18,7 +18,7 @@ const useHistory = () => {
       setErr("");
       setHistory([]);
       await axiosClient
-        .get(`/historial/${values.clienteId}`)
+        .get(`/funds/historial/${values.clienteId}`)
         .then((response) => {
           setHistory(response.data);
         })
