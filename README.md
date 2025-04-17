@@ -53,7 +53,9 @@ Aplicación web para suscripción, cancelación y consulta de transacciones en f
   "notificado_por": "sms | email"
 }
 ```
+
 ### c. Aplicación Web
+
 La solución completa se encuentra implementada en este repositorio.
 
 El backend está desarrollado en FastAPI con lógica de negocio detallada y el frontend React permite listar fondos, suscribirse y ver historial.
@@ -61,14 +63,15 @@ El backend está desarrollado en FastAPI con lógica de negocio detallada y el f
 El despliegue se realiza vía AWS CloudFormation y S3.
 
 ## 📌 Parte 2 - Consulta SQL
+
 ```sql
 SELECT DISTINCT c.nombre
 FROM Cliente c
 JOIN Inscripción i ON c.id = i.idCliente
 JOIN Disponibilidad d ON i.idProducto = d.idProducto
 JOIN Visitan v ON c.id = v.idCliente AND d.idSucursal = v.idSucursal;
-
 ```
+
 ---
 
 ## 🚀 Tecnologías utilizadas
@@ -146,10 +149,7 @@ Esto cargará:
 ### ☁️ Despliegue con CloudFormation
 
 ```bash
-aws cloudformation deploy \
-  --template-file template.yaml \
-  --stack-name FondosStack \
-  --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation deploy   --template-file template.yaml   --stack-name FondosStack   --capabilities CAPABILITY_NAMED_IAM
 ```
 
 Incluye:
@@ -187,3 +187,46 @@ http://localhost:4200
 
 - Usar el ID generado en cargar_datos_iniciales.py como cliente de prueba.
 - Para notificaciones SMS, debe estar habilitado el número en el sandbox de SNS.
+
+---
+
+## ☁️ Despliegue del Frontend con S3 + CloudFront
+
+### 1. Generar build del proyecto
+
+```bash
+npm run build
+```
+
+### 2. Desplegar infraestructura con CloudFormation
+
+```bash
+aws cloudformation deploy   --template-file template_frontend.yaml   --stack-name FondosFrontendStack   --capabilities CAPABILITY_NAMED_IAM
+```
+
+Este template crea:
+
+- Un bucket S3 (`fondos-frontend-demo-camilo-20250416-1126pm`)
+- Una distribución CloudFront apuntando al bucket
+
+### 3. Subir contenido del build a S3
+
+```bash
+aws s3 sync dist/ s3://fondos-frontend-demo-camilo-20250416-1126pm
+```
+
+### 4. Acceder a la aplicación
+
+Busca la URL de distribución en la consola de AWS o con:
+
+```bash
+aws cloudformation describe-stacks --stack-name FondosFrontendStack
+```
+
+Obtendrás una URL tipo:
+
+```
+https://d123abcde1234.cloudfront.net
+```
+
+Y ya podrás acceder al frontend React en línea ✅
