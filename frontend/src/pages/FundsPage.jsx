@@ -4,8 +4,11 @@ import useFunds from "../hooks/useFunds";
 const FundsPage = () => {
   const { funds, errors, getFunds } = useFunds();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getFunds, []);
+  useEffect(() => {
+    getFunds();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <React.Fragment>
       <div className="p-8">
