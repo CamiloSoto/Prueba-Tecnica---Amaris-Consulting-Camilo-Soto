@@ -27,7 +27,7 @@ const useSubscribe = () => {
       await axiosClient
         .post("/funds/suscribir", data)
         .then((response) => {
-          setMessage(`✅ Suscripción exitosa. ID: ${response.id}`);
+          setMessage(`✅ Suscripción exitosa. ID: ${response.data.id}`);
         })
         .catch((err) => {
           setMessage(
