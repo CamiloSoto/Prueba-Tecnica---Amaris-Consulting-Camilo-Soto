@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useSubscribe from "../hooks/useSubscribe";
 import useFunds from "../hooks/useFunds";
 
 const SubscribePage = () => {
   const { message, values, handleChange, handleSubmit } = useSubscribe();
-  const { funds } = useFunds();
+  const { funds, getFunds } = useFunds();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getFunds, []);
+
   return (
     <React.Fragment>
       <div className="p-8">
